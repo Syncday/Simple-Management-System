@@ -129,9 +129,6 @@ function load(){
 		}else if(username.value==""||password.value==""){
 			alert("用户名和密码不能为空！");
 			window.event.returnValue = false;
-		}else{
-			window.location.pathname="index.html";
-			//window.navigate("index.html"); 
 		}
 	});
 }
@@ -146,7 +143,7 @@ function load(){
 				<p class="p1">登录</p>
 			</div>
 			<!-- 输入框 -->
-		<form action="index.html" method="post" name="myform">
+		<form action="loginChecker.php" method="post" name="myform">
 			<div class="lgD">
 				<img src="img/logName.png" width="20" height="20" alt=""/>
 				<input type="text" name="username"

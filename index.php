@@ -10,8 +10,15 @@
     <meta name="description" content="简单实用网站后台管理系统网站模板下载。" /> 
     <link rel="stylesheet" href="css/pintuer.css">
     <link rel="stylesheet" href="css/admin.css">
-    <script src="js/jquery.js"></script>   
 </head>
+<?php
+  session_start();
+  if(!isset($_SESSION['isLogin'])){
+    echo "<script>alert('您还没登录呢!')</script>";
+    header('Refresh:0;url=login.html');
+    die();
+  }
+?>
 <body style="background-color:#f2f9fd;">
 <div class="header bg-main">
   <div class="logo margin-big-left fadein-top">

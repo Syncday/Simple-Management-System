@@ -89,4 +89,51 @@ class database
             return $e->getMessage();
         }
     }
+    /**
+     * 登录检测
+     */
+    public function checkLogin($username, $password)
+    {
+        try {
+            $stmt = $this->mysql->prepare("select user_name from user where user_name=? and user_password=?");
+            $data=array($username,md5($password));
+            $stmt->execute($data);
+            $result = $stmt->fetchAll();
+            $stmt = NULL;
+            if($result==null){
+                return NULL;
+            }else{
+                return $result;
+            }
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    /**
+     * 获取全部学生数据
+     */
+    public function getallstudent()
+    {
+        try {
+            $stmt = $this->mysql->prepare("select * from student");
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
+    /**
+     * 添加学生数据
+     */
+    public function addstudent($id,$name,$gender,$major,$class){
+        try {
+            $stm=$this->mysql->prepare("insert into student values(?,?,?,?,?)");
+            $data = array($id,$name,$gender,$major,$class);
+            $stm->execute($data);
+            $stm=null;
+            return null;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+    }
 }
