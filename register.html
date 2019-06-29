@@ -95,7 +95,7 @@
 				<p class="p1">注册</p>
 			</div>
 			<!-- 输入框 -->
-			<form action="" method="post" name="myform">
+			<form action="createUser.php" method="post" name="myform">
 			<div class="lgD">
 				<img src="img/logName.png" width="20" height="20" alt=""/>
 				<input type="text" name="username"
@@ -114,27 +114,3 @@
 </div>
 </body>
 </html>
-<?php
-if (!empty($_POST['submit'])&&$_POST["submit"]!="") {	
-    $host='localhost';
-    $username='test';
-    $password='123456';
-    $database='test';
-    $mysqli=new mysqli($host, $username, $password, $database);
-	if ($mysqli) {
-		$sql="create table admin(
-			username char(20) not null,
-			password varchar(50) not null,
-			primary key(username))";
-		$mysqli->query($sql);//创建注册信息数据库
-		$sql="alter table tablename convert to character SET utf8mb4 COLLATE utf8mb4_unicode_ci;";
-		$mysqli->query($sql);
-		$username=$_POST['username'];
-		$password=$_POST['password'];
-		$sql="insert into admin(username,password) values($username,md5($password));";
-		$mysqli->query($sql);
-		echo $mysqli->error;
-
-	}
-}
-?>

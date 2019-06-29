@@ -7,6 +7,7 @@ $image_width=80;
 $image_height=18;
 $new_number=getRandomString(6,"0123456789ABCDEF");//生成验证码
 $_SESSION['check_checks']=$new_number;
+setcookie('checkCode',$_SESSION['check_checks']);//保存到cokie
 $num_image=imagecreate($image_width,$image_height);
 imagecolorallocate($num_image,255,255,255);
 for($i=0;$i<strlen($_SESSION['check_checks']);$i++){
@@ -20,10 +21,10 @@ for($i=0;$i<strlen($_SESSION['check_checks']);$i++){
 imagepng($num_image);
 imagedestroy($num_image);
 function getRandomString($len, $chars=null)  
-{  
-    if (is_null($chars)) {  
+{
+    if (is_null($chars)) {
         $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";  
-    }  
+    }
     mt_srand(10000000*(double)microtime());  
     for ($i = 0, $str = '', $lc = strlen($chars)-1; $i < $len; $i++) {  
         $str .= $chars[mt_rand(0, $lc)];  

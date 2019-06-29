@@ -100,6 +100,42 @@
 </style>
 </head>
 <body>
+<script>
+window.addEventListener("load",load); 
+var key = 0;
+function load(){
+	var username = document.myform.username;
+	var password = document.myform.password;
+	var checks = document.myform.checks;
+	//检查用户名
+    var submit = document.myform.submit;
+    submit.addEventListener("click",function(){
+		//获取cookie字符串
+		var strCookie=document.cookie;
+		//将多cookie切割为多个名/值对
+		var arrCookie=strCookie.split(";");
+		var checkCode;
+		//遍历cookie数组，处理每个cookie对
+		for(var i=0;i<arrCookie.length;i++){
+             var arr=arrCookie[i].split("=");
+             if("checkCode"==arr[0]){
+                    checkCode=arr[1];
+                    break;
+            }
+		}
+		if(checks.value!=checkCode){
+			alert("验证码错误！");
+			window.event.returnValue = false;
+		}else if(username.value==""||password.value==""){
+			alert("用户名和密码不能为空！");
+			window.event.returnValue = false;
+		}else{
+			window.location.pathname="index.html";
+			//window.navigate("index.html"); 
+		}
+	});
+}
+</script>
 <div class="header" id="head">
   <div class="title">大学排课管理系统</div>
 </div>
@@ -110,15 +146,15 @@
 				<p class="p1">登录</p>
 			</div>
 			<!-- 输入框 -->
-		<form action="" method="post" name="myform">
+		<form action="index.html" method="post" name="myform">
 			<div class="lgD">
 				<img src="img/logName.png" width="20" height="20" alt=""/>
-				<input type="text"
+				<input type="text" name="username"
 					placeholder="输入用户名" />
 			</div>
 			<div class="lgD">
 				<img src="img/logPwd.png" width="20" height="20" alt=""/>
-				<input type="text" id='test'
+				<input type="text" name="password"
 					placeholder="输入用户密码" />
 			</div>
 			<div class="lgD">
@@ -132,27 +168,9 @@
 			</div>
 		</form>
 			<div class="toRegister">
-				<a href="register.php" ><p>没有?去注册></p></a>
+				<a href="register.html" ><p>没有?去注册></p></a>
 			</div>
 		</div>
 </div>
 </body>
-<?php
-if(!isset($_SESSION)){
-    session_start();
-}
-if(!empty($_POST['submit'])&&$_POST["submit"]!=""){
-    $checks=$_POST["checks"];
-    if($checks==""){
-        echo "<script>alert('验证码不能为空！');window.location.href='login.php';</script>";
-    }
-    if($checks==$_SESSION['check_checks']){//验证码正确
-        if($_POST['savepw']=="yes"){
-            setcookie('usrname',$_POST['usrname']);
-            setcookie('pw',$_POST['pw']);
-        }
-        header("refresh:0;url=content.php");
-    }
-}
-?>
 </html>
