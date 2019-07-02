@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>学生信息</title>  
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<script>
+    window.addEventListener("load",load,false);
+    function load(){
+      var xmlhttp;
+      if (window.XMLHttpRequest)
+      {
+        // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+        xmlhttp=new XMLHttpRequest();
+      }
+      xmlhttp.onreadystatechange=function()
+      {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+          document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+        }
+      }
+      var url = "operation.php?type=assign&table=assignClassroom";
+      xmlhttp.open("GET",url,true);
+      xmlhttp.send();
+    }
+</script>
+<body>
+<div class="panel admin-panel">
+    <div class="panel-head"><strong class="icon-reorder"> 课室分配</strong></div>
+    <table class="table table-hover text-center">
+      <tr>
+          <th>行政班课程编号</th>
+          <th>上课人数</th>     
+          <th>教室地址</th>
+          <th>教室容量</th>  
+      </tr>
+    </table>
+</div>
+<div class="panel admin-panel">
+    <div id="showtable"></div>
+<div>
+</body>
+</html>

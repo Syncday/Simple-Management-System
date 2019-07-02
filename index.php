@@ -14,9 +14,9 @@
 <?php
   session_start();
   if(!isset($_SESSION['isLogin'])){
-    echo "<script>alert('您还没登录呢!')</script>";
-    header('Refresh:0;url=login.html');
-    die();
+    //echo "<script>alert('您还没登录呢!')</script>";
+    //header('Refresh:0;url=login.html');
+    //die();
   }
 ?>
 <body style="background-color:#f2f9fd;">
@@ -27,14 +27,17 @@
 </div>
 <div class="leftnav">
   <div class="leftnav-title"><strong><span class="icon-list"></span>管理</strong></div>
+  <h2><span class="icon-pencil-square-o"></span>信息管理</h2>
   <ul style="display:block">
-    <li><a href="studentinfo.php" target="right"><span class="icon-caret-right"></span>学生信息</a></li>
+    <li><a href="studentinfo.html" target="right"><span class="icon-caret-right"></span>学生信息</a></li>
     <li><a href="teacherinfo.html" target="right"><span class="icon-caret-right"></span>教师信息</a></li>
     <li><a href="courseinfo.html" target="right"><span class="icon-caret-right"></span>课程信息</a></li>  
     <li><a href="classinfo.html" target="right"><span class="icon-caret-right"></span>教室信息</a></li>   
-    <li><a href="teachingmanage.html" target="right"><span class="icon-caret-right"></span>授课管理</a></li>     
-    <li><a href="electivemanage.html" target="right"><span class="icon-caret-right"></span>选修管理</a></li>
+    <li><a href="teachinginfo.html" target="right"><span class="icon-caret-right"></span>授课管理</a></li>     
+    <li><a href="electiveinfo.html" target="right"><span class="icon-caret-right"></span>选修管理</a></li>
   </ul>   
+  <h2><a href="assignClassroom.html" target="right"><span class="icon-pencil-square-o"></span>课室分配</a></h2>
+  <h2><a href="assignCurriculum.html" target="right"><span class="icon-pencil-square-o"></span>课表生成</a></h2>
 </div>
 <script type="text/javascript">
 $(function(){
@@ -50,7 +53,7 @@ $(function(){
 });
 </script>
 <div class="admin">
-  <iframe scrolling="auto" rameborder="0" src="studentinfo.php" name="right" width="100%" height="99%"></iframe>
+  <iframe scrolling="auto" rameborder="0" src="studentinfo.html" name="right" width="100%" height="99%"></iframe>
 </div>
 </body>
 </html>

@@ -9,10 +9,6 @@
     <link rel="stylesheet" href="css/pintuer.css">
     <link rel="stylesheet" href="css/admin.css">
 </head>
-<?php
-  include "database.php";
-  $db = new database();
-?>
 <script>
 window.addEventListener("load",load,false);
 function load(){
@@ -36,7 +32,7 @@ function load(){
 </script>
 <body>
 <div class="panel admin-panel margin-top">
-  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>添加</strong></a></div>
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>操作</strong></a></div>
     <table class="table table-hover text-center">
       <tr>
         <th width="5%">学号</th>     
@@ -44,15 +40,17 @@ function load(){
           <th>性别</th>
           <th>专业</th>
           <th>班级</th>
-          <th width="250"></th>
+          <th></th><th></th><th></th>
       </tr>
       <tr>
-        <th><input type="number" name="id" id="id" style="height:30px;text-align:center;"/></th>
-        <th><input type="text" name="name" id="name" style="height:30px;text-align:center;"/></th>
-        <th><input type="text" name="gender" id="gender" style="height:30px;text-align:center;"/></th>
-        <th><input type="text" name="major" id="major" style="height:30px;text-align:center;"/></th>
-        <th><input type="text" name="class" id="class" style="height:30px;text-align:center;"/></th>
+        <th><input type="number" name="id" id="id" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="name" id="name" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="gender" id="gender" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="major" id="major" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="class" id="class" style="text-align:center;width:150px;"/></th>
         <th><a class="button border-yellow" href="javascript:void(0)" onclick="add()"><span class="icon-plus-square-o"></span>添加</a></th>
+        <th><a type="button" class="button border-main" href="javascript:void(0)" onclick="update()"><span class="icon-edit"></span>修改</a></th>
+        <th><a class="button border-red" href="javascript:void(0)" onclick="return del()"><span class="icon-trash-o"></span> 删除</a></th>
       </tr>
     </table>
 </div>
@@ -65,6 +63,7 @@ function load(){
         <th>性别</th>
         <th>专业</th>
         <th>班级</th>
+
     </tr>
   </table>
 </div> 
@@ -72,14 +71,14 @@ function load(){
     <div id="showtable"></div>
 <div>
 <script>
-function add(str){
+function add(){
   var id =document.getElementById("id").value;
   var name = document.getElementById("name").value;
   var gender = document.getElementById("gender").value;
   var major = document.getElementById("major").value;
   var classA = document.getElementById("class").value;//变量名不能为class
   if(id==""||name==""||gender==""||major==""||classA==""){
-      alert("不能为空");
+      alert("所有信息都必须填写!");
   }else{
     var xmlhttp;
   if (window.XMLHttpRequest)
@@ -95,6 +94,56 @@ function add(str){
     }
   }
   var url = "operation.php?type=add&table=student&id="+id+"&name="+name+"&gender="+gender+"&major="+major+"&classA="+classA;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  }
+}
+function update(){
+  var id =document.getElementById("id").value;
+  var name = document.getElementById("name").value;
+  var gender = document.getElementById("gender").value;
+  var major = document.getElementById("major").value;
+  var classA = document.getElementById("class").value;//变量名不能为class
+  if(id==""||name==""||gender==""||major==""||classA==""){
+      alert("所有信息都必须填写!");
+  }else{
+    var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=update&table=student&id="+id+"&name="+name+"&gender="+gender+"&major="+major+"&classA="+classA;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  }
+}
+function del(){
+  var id =document.getElementById("id").value;
+  if(id==""){
+    alert("学号不能为空!");
+  }else{
+    var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=del&table=student&id="+id;
   xmlhttp.open("GET",url,true);
   xmlhttp.send();
   }

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="renderer" content="webkit">
+    <title>教室信息</title>  
+    <link rel="stylesheet" href="css/pintuer.css">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<script>
+window.addEventListener("load",load,false);
+function load(){
+  var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=load&table=classroom";
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+}
+</script>
+<body>
+<div class="panel admin-panel margin-top">
+  <div class="panel-head" id="add"><strong><span class="icon-pencil-square-o"></span>操作</strong></a></div>
+    <table class="table table-hover text-center">
+      <tr>
+        <th width="5%">教室编号</th>     
+          <th>地址</th>
+          <th>容量</th>
+          <th>是否有多媒体</th>
+          <th></th><th></th><th></th>
+      </tr>
+      <tr>
+        <th><input type="number" name="id" id="id" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="address" id="address" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="capacity" id="capacity" style="text-align:center;width:150px;"/></th>
+        <th><input type="text" name="hasmedia" id="hasmedia" style="text-align:center;width:150px;"/></th>
+        <th><a class="button border-yellow" href="javascript:void(0)" onclick="add()"><span class="icon-plus-square-o"></span>添加</a></th>
+        <th><a type="button" class="button border-main" href="javascript:void(0)" onclick="update()"><span class="icon-edit"></span>修改</a></th>
+        <th><a class="button border-red" href="javascript:void(0)" onclick="return del()"><span class="icon-trash-o"></span> 删除</a></th>
+      </tr>
+    </table>
+</div>
+<div class="panel admin-panel">
+  <div class="panel-head"><strong class="icon-reorder"> 学生信息表</strong></div>
+  <table class="table table-hover text-center">
+    <tr>
+            <th>教室编号</th>     
+            <th>地址</th>
+            <th>容量</th>
+            <th>是否有多媒体</th>
+    </tr>
+  </table>
+</div> 
+<div class="panel admin-panel">
+    <div id="showtable"></div>
+<div>
+<script>
+function add(){
+  var id =document.getElementById("id").value;
+  var address = document.getElementById("address").value;
+  var capacity = document.getElementById("capacity").value;
+  var hasmedia = document.getElementById("hasmedia").value;
+  if(id==""||address==""||capacity==""||hasmedia==""){
+      alert("所有信息都必须填写!");
+  }else{
+    var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=add&table=classroom&id="+id+"&address="+address+"&capacity="+capacity+"&hasmedia="+hasmedia;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  }
+}
+function update(){
+    var id =document.getElementById("id").value;
+  var address = document.getElementById("address").value;
+  var capacity = document.getElementById("capacity").value;
+  var hasmedia = document.getElementById("hasmedia").value;
+  if(id==""||address==""||capacity==""||hasmedia==""){
+      alert("所有信息都必须填写!");
+  }else{
+    var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=update&table=classroom&id="+id+"&address="+address+"&capacity="+capacity+"&hasmedia="+hasmedia;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  }
+}
+function del(){
+  var id =document.getElementById("id").value;
+  if(id==""){
+    alert("教室编号不能为空!");
+  }else{
+    var xmlhttp;
+  if (window.XMLHttpRequest)
+  {
+    // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+    xmlhttp=new XMLHttpRequest();
+  }
+  xmlhttp.onreadystatechange=function()
+  {
+    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+    {
+      document.getElementById("showtable").innerHTML=xmlhttp.responseText;
+    }
+  }
+  var url = "operation.php?type=del&table=classroom&id="+id;
+  xmlhttp.open("GET",url,true);
+  xmlhttp.send();
+  }
+}
+</script>
+</body></html>
